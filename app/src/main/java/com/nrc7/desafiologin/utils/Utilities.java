@@ -1,13 +1,18 @@
 package com.nrc7.desafiologin.utils;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
+import com.nrc7.desafiologin.MainActivity;
+import com.nrc7.desafiologin.SignUpActivity;
 import com.squareup.picasso.Picasso;
 
 public class Utilities {
 
-    private static final String BG_IMAGE="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Android_robot.svg/872px-Android_robot.svg.png";
+    private static final String BG_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Android_robot.svg/872px-Android_robot.svg.png";
     private static final String LOGO_URL = "https://blog.desafiolatam.com/wp-content/uploads/2015/03/desafio-latam-logonegro.png";
     private static final String USER_PASS = "123456";
 
