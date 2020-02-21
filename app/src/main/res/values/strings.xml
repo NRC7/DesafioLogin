@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">DesafioLogin</string>
     <string name="user_success">Usuario ingresado con éxito</string>
+
+
 </resources>

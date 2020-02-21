@@ -2,6 +2,7 @@ package com.nrc7.desafiologin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,15 +11,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.nrc7.desafiologin.login.LoginCallback;
+import com.nrc7.desafiologin.login.LoginEvaluator;
+import com.nrc7.desafiologin.utils.Utilities;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginCallback {
 
-    ImageView loginPhoto;
-    EditText userNameEt, passwordEt;
-    Button loginBtn;
-
-    public static final String LOGO_URL = "http://blog.desafiolatam.com/wp-content/uploads/2015/03/desafio-latam-logonegro.png";
+    private ImageView loginPhoto;
+    private EditText userNameEt, passwordEt;
+    private Button loginBtn;
+    private Utilities utilities = new Utilities();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,27 +33,27 @@ public class MainActivity extends AppCompatActivity {
         passwordEt = findViewById(R.id.passEditText);
         loginBtn = findViewById(R.id.button);
 
-        // Init login logo
-        initLogo(loginPhoto);
+        // Init login logo from Utilities.class
+        utilities.initLogo(loginPhoto, Utilities.getLogoUrl());
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, R.string.user_success, Toast.LENGTH_SHORT).show();
+                new LoginEvaluator(MainActivity.this).loginEvaluation(Utilities.getUserPass());
             }
         });
     }
 
-    // Put logo image into an imageview
-    private void initLogo(ImageView imageView) {
-        if (imageView != null) {
-            Picasso.get()
-                    .load(LOGO_URL)
-                    .into(imageView);
-            Log.d("NRC7", "initLogo: IMAGE OK");
-        } else {
-            Log.d("NRC7", "initLogo: IMAGE NULL");
-        }
+    @Override
+    public void isLogged() {
+        Toast.makeText(this, "LOGIN EXITOSO!!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void notLogged() {
+        Toast.makeText(this, "DATOS INCORRECTOS!!", Toast.LENGTH_SHORT).show();
     }
 }
 
